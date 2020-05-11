@@ -1,0 +1,5 @@
+#!/bin/bash
+CHECK=$1
+SCRIPT_DIRS="/app/bin/"
+PYTHON_SCRIPTS=$(grep -Erl "^#\!.*python[23]?(\.[0-9]+)?$" ${SCRIPT_DIRS})
+black $CHECK /app/src/ ${PYTHON_SCRIPTS}

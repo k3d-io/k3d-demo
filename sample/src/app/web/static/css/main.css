@@ -1,0 +1,63 @@
+/* All items */
+* {
+  max-width: 100%;
+}
+
+/* Top-Level Structures */
+html {
+  background: white;
+  color: #333333;
+  font: 17px/1.4 'Lato', Helvetica, Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Lists */
+ul, li {
+  text-align: center;
+}
+
+#namespace-list {
+  padding: 0;
+  list-style-type: none;
+  font-family: monospace;
+}
+
+/* Alignment */
+.center {
+  margin: auto;
+}
+
+.centered {
+  text-align: center;
+}
+
+.half {
+  width: 50%;
+}
+
+#faq {
+  max-width: 50vw;
+}
+
+
+/* images */
+img{
+  vertical-align: middle;
+}
+#logo {
+  max-width: 350px;
+}
+
+/* Buttons */
+#submit {
+  width: 100%;
+}
+
+#upload {
+  width: fit-content;
+}

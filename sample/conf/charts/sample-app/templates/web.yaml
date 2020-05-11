@@ -1,0 +1,96 @@
+{{- $app := .Release.Name -}}
+{{- $component := "web" -}}
+{{- $name := printf "%s-%s" $app $component -}}
+
+{{- if .Values.app.domain }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: "{{ $name }}"
+  labels:
+    team: "{{ .Values.team }}"
+    app: "{{ $app }}"
+    component: "{{ $component }}"
+spec:
+  rules:
+    - host: "{{ .Values.app.domain }}"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $name }}
+              servicePort: {{ .Values.app.port }}
+  tls:
+    - hosts:
+      - "{{ .Values.app.domain }}"
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    team: "{{ .Values.team }}"
+    app: "{{ $app }}"
+    component: "{{ $component }}"
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.app.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: "{{ $app }}"
+    component: "{{ $component }}"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ $name }}"
+  labels:
+    team: "{{ .Values.team }}"
+    app: "{{ $app }}"
+    component: "{{ $component }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ $app }}"
+      component: "{{ $component }}"
+  template:
+    metadata:
+      labels:
+        team: "{{ .Values.team }}"
+        app: "{{ $app }}"
+        component: "{{ $component }}"
+    spec:
+      containers:
+        - name: "{{ $component }}"
+          image: "{{ .Values.app.image }}"
+          imagePullPolicy: IfNotPresent
+          args: {{ .Values.app.args }}
+          env:
+            {{- include "env_vars" .Values.app.env | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.app.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+{{- if .Values.app.srcFrom }}
+          volumeMounts:
+            - name: src
+              mountPath: /app
+      volumes:
+        - name: src
+          hostPath: 
+            path: {{ .Values.app.srcFrom }}
+            type: DirectoryOrCreate
+{{- end }}

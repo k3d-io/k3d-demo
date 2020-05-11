@@ -1,0 +1,11 @@
+
+# general app values
+team: Rancher
+app:
+  image: sample-app:local
+  env:
+    AUDIENCE: rancher
+  args: '["serve-develop"]'
+  domain: sample.k3d.localhost
+  port: 5000
+  srcFrom: /src

@@ -1,0 +1,4 @@
+.vscode/
+.local/
+**/__pycache__/
+docker-compose.orverride.yml

@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  app:
+    container_name: sample-app
+    build: .
+    volumes: 
+      - .:/app
+    environment:
+      LOG_LEVEL: debug
+    ports:
+      - "5000:5000"
+    command: ["serve-develop"]
