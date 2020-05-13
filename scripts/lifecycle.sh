@@ -26,7 +26,7 @@ info_pause_exec "Update the default kubeconfig with the new cluster details" "k3
 # info "--switch true: set the kubeconfig's current-context to the new cluster context (false by default)"
 
 
-info_pause_exec "Use kubectl to checkout the nodes" "kubectl get nodes -o wide"
+info_pause_exec "Use kubectl to checkout the nodes" "kubectl get nodes"
 
 section "Use the Cluster"
 
@@ -43,17 +43,17 @@ section "Grow the Cluster"
 
 info_pause_exec "Add 2 workers to the cluster" "k3d create node new-worker --cluster demo --role worker --replicas 2"
 
-info_pause_exec "Use kubectl to see the new nodes" "kubectl get nodes -o wide"
+info_pause_exec "Use kubectl to see the new nodes" "kubectl get nodes"
 
 section "Start/Stop the Cluster"
 
 info_pause_exec "Stop the cluster" "k3d stop cluster demo"
 
-info_pause_exec "Try to access the stopped cluster" "kubectl get nodes -o wide"
+info_pause_exec "Try to access the stopped cluster" "kubectl get nodes"
 
 info_pause_exec "Start the cluster" "k3d start cluster demo"
 
-info_pause_exec "Access restarted cluster" "kubectl get nodes -o wide"
+info_pause_exec "Access restarted cluster" "kubectl get nodes"
 
 section "The End"
 

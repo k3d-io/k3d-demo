@@ -12,6 +12,6 @@ info_pause_exec "Create the cluster" "k3d create cluster demo --api-port 6550 --
 
 info_pause_exec "Update the default kubeconfig with the new cluster details" "k3d get kubeconfig demo --update --switch"
 
-info_pause_exec "Using kubectl (with the default kubeconfig)" "kubectl get nodes -o wide"
+info_pause_exec "Using kubectl (with the default kubeconfig)" "kubectl get nodes"
 
 info_pause_exec "Delete the Cluster" "k3d delete cluster demo"
