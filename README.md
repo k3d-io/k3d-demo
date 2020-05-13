@@ -1,9 +1,16 @@
 # k3d-demo
 
-## Requirements:
+## Requirements
 
 - `docker`
 - `k3d >= v3.0.0-beta.1`
+
+## Resources
+
+- https://k3d.io/
+- https://github.com/rancher/k3d
+- v3 Beta Release: https://github.com/rancher/k3d/releases/tag/v3.0.0-beta.1
+  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/master/install.sh | TAG=v3.0.0-beta.1 bash`
 
 ## Run
 
