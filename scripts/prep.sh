@@ -6,16 +6,16 @@ CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # shellcheck source=./common.sh
 source "$CURR_DIR/common.sh"
 
-info "Cleaning up docker environment..."
+section "Cleaning up docker environment..."
 docker rm -f $(docker ps -qa)
 docker network prune -f
 docker volume prune -f
 docker system prune -a -f
 
-info "Pulling images..."
+section "Pulling images..."
 docker pull rancher/k3s:v1.17.5-k3s1
 docker pull iwilltry42/k3d-proxy:v0.0.2
 docker pull iwilltry42/k3d-tools:v0.0.2
 
-info "Preparing Filesystem..."
+section "Preparing Filesystem..."
 mkdir /tmp/src

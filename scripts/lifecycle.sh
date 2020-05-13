@@ -35,6 +35,7 @@ info_pause_exec "Build the sample-app" "docker build sample/ -f sample/Dockerfil
 info_pause_exec "Load the sample-app image into the cluster" "k3d load image -c demo sample-app:local"
 
 info_pause_exec "Create a new 'demo' namespace" "kubectl create namespace demo"
+info_pause_exec "Switch to the new 'demo' namespace" "kubens demo"
 info_pause_exec "Deploy the sample app with helm" "helm upgrade --install sample-app sample/conf/charts/sample-app --namespace demo --set app.image=sample-app:local"
 
 info_pause_exec "Access the sample app frontend via ingress" "chromium --new-window http://sample.k3d.localhost:8080 &>/dev/null &"
