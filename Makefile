@@ -3,8 +3,8 @@
 demo:
 	scripts/lifecycle.sh
 
-demo-multimaster:
-	scripts/multimaster.sh
+demo-multiserver:
+	scripts/multiserver.sh
 
 prep:
 	scripts/prep.sh
