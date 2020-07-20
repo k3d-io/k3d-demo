@@ -8,4 +8,3 @@ app:
   args: '["serve-develop"]'
   domain: sample.k3d.localhost
   port: 5000
-  srcFrom: /src
