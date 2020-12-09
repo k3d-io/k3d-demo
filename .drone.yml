@@ -13,26 +13,26 @@ steps:
   - name: test
     image: iwilltry42/k3d-ci:v4.0.0-alpha.1
     commands:
-      - until docker ps 2>&1 > /dev/null; do echo "waiting for docker to start..." && sleep 1; done
-      - mkdir -p ~/.kube/config
+      - sleep 20
       - k3d version
-      - k3d cluster create
-      - k3d cluster list
-      - sleep 5
-      - netstat -ntlp
     volumes:
-      - name: dockersock
-        path: /var/run
+      - name: k3dconf
+        path: /tmp/k3d
 
 services:
-  # Starting the docker service to be used by dind
-  - name: docker
-    image: docker:19.03-dind
+  - name: k3d
+    image: iwilltry42/k3d:v4.0.0-alpha.1-dind
     privileged: true
+    commands:
+      - dockerd-entrypoint.sh &
+      - sleep 4
+      - ps aux
+      - until docker ps 2>&1 > /dev/null; do echo "waiting for docker to start..." && sleep 1; done
+      - k3d cluster create
     volumes:
-      - name: dockersock
-        path: /var/run
+      - name: k3dconf
+        path: /tmp/k3d
 
 volumes:
-  - name: dockersock
+  - name: k3dconf
     temp: {}
