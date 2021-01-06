@@ -4,6 +4,8 @@
 
 - `docker`
 - `k3d >= v3.0.0-rc.7`
+- [kubens](https://github.com/ahmetb/kubectx) callable via the `kubens` binary
+- [chromium](https://www.chromium.org/Home) callable via the `chromium` binary
 
 ## Resources
 
