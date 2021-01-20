@@ -2,8 +2,9 @@
 
 ## Requirements
 
-- `docker`
-- `k3d >= v4.0.0`
+- [`docker`](https://docs.docker.com/get-docker/)
+- [`k3d >= v4.0.0`](https://k3d.io/#installation)
+- (optional) [`tilt`](https://docs.tilt.dev/install.html)
 
 ## Resources
 

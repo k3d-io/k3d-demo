@@ -9,5 +9,8 @@ demo-multiserver:
 demo-configfile:
 	scripts/configfile.sh
 
+demo-tilt:
+	scripts/tilt.sh
+
 prep:
 	scripts/prep.sh

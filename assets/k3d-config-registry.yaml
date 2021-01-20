@@ -1,0 +1,16 @@
+apiVersion: k3d.io/v1alpha1
+kind: Simple
+name: tilt
+servers: 1
+agents: 1
+ports:
+  - port: 8080:80
+    nodeFilters:
+      - loadbalancer
+registries:
+  create: true
+  config: |
+    mirrors:
+      my.company.registry:
+        endpoint:
+          - http://registry.company.com:5000
