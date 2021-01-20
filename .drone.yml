@@ -17,17 +17,25 @@ steps:
       - export KUBECONFIG=kubeconfig-$${DRONE_BUILD_STARTED}.yaml
       - until test -f $${KUBECONFIG}; do sleep 1s; done # wait for k3d service to write the kubeconfig to the workspace
       - kubectl config view
-      - until kubectl get deployment coredns -n kube-system -o go-template='{{.status.availableReplicas}}' | grep -v -e '<no value>'; do sleep 1s; done # wait for coredns to be up and running
       - kubectl get pods --all-namespaces
+      - kubectl create namespace ci # create new namespace for test deployments
+      - kubectl -n ci run test-pod --image alpine -- tail -f /dev/null # create dummy pod that just hangs around
+      - until kubectl -n ci get pod test-pod -o go-template='{{.status.phase}}' | grep 'Running'; do sleep 1s; done # wait for pod to be running
+      - kubectl -n ci get pods
+      - kubectl -n ci exec test-pod -- echo "Hello World!" # do something inside that pod -> here you could exec tests
+      - printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@ The End @@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+      - echo "You can also run some integration tests, etc. by hitting API endpoints or something like that.."
+      - echo "For example, combine this with Helm post-install hooks that wait for testing jobs to finish before marking a release as success."
 
 services:
   - name: k3dsvc
     image: rancher/k3d:v4.0.0-rc.2-dind
     privileged: true    
     commands:
-      - export KUBECONFIG=kubeconfig-$${DRONE_BUILD_STARTED}.yaml
       - nohup dockerd-entrypoint.sh & # start docker in the background
       - until docker ps 2>&1 > /dev/null; do sleep 1s; done # wait for docker to be ready before proceeding
       - k3d cluster create --config ci/k3d-drone.yaml --api-port k3dsvc:6445 # create k3d cluster from config file
+      - until kubectl get deployment coredns -n kube-system -o go-template='{{.status.availableReplicas}}' | grep -v -e '<no value>'; do sleep 1s; done # wait for coredns to be up and running
+      - k3d kubeconfig get drone > kubeconfig-$${DRONE_BUILD_STARTED}.yaml
       - printf "@@@@@@@@@@@@@@@@@@@@@@@\n@@@@ k3d is ready! @@@@\n@@@@@@@@@@@@@@@@@@@@@@@\n"
       - tail -f /dev/null # chill around while the steps do their work
