@@ -6,5 +6,5 @@ LOG_LEVEL = os.environ.get("LOG_LEVEL", "warning").upper()
 
 log.basicConfig(level=LOG_LEVEL)
 
-AUDIENCE = "trivago"#os.environ.get("AUDIENCE", "trivago")
+AUDIENCE = os.environ.get("AUDIENCE", "Rancher")
 SOMENAME = os.environ.get("SOMENAME", "Meetup")
