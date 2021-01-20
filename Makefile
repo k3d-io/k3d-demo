@@ -12,5 +12,8 @@ demo-configfile:
 demo-tilt:
 	scripts/tilt.sh
 
+demo-drone:
+	scripts/drone.sh
+
 prep:
 	scripts/prep.sh
