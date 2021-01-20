@@ -5,6 +5,8 @@
 - [`docker`](https://docs.docker.com/get-docker/)
 - [`k3d >= v4.0.0`](https://k3d.io/#installation)
 - (optional) [`tilt`](https://docs.tilt.dev/install.html)
+- [kubens](https://github.com/ahmetb/kubectx) callable via the `kubens` binary
+- [chromium](https://www.chromium.org/Home) callable via the `chromium` binary
 
 ## Resources
 
