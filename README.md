@@ -2,22 +2,22 @@
 
 ## Requirements
 
-- `docker`
-- `k3d >= v3.0.0-rc.7`
+- [`docker`](https://docs.docker.com/get-docker/)
+- [`k3d >= v4.0.0`](https://k3d.io/#installation)
+- (optional) [`tilt`](https://docs.tilt.dev/install.html)
 - [kubens](https://github.com/ahmetb/kubectx) callable via the `kubens` binary
 - [chromium](https://www.chromium.org/Home) callable via the `chromium` binary
 
 ## Resources
 
-- https://k3d.io/
-- https://github.com/rancher/k3d
-- v3 Release Candidate: https://github.com/rancher/k3d/releases/tag/v3.0.0-rc.7
-  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v3.0.0-rc.7 bash`
+- <https://k3d.io/>
+- <https://github.com/rancher/k3d>
+- v4 Release Candidate: <https://github.com/rancher/k3d/releases/tag/v4.0.0-rc.2>
+  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.0.0-rc.2 bash`
   
-- k3d in Rancher Meetup May 2020: https://youtu.be/hMr3prm9gDM?t=2103 (with old version, using the old syntax!)
-
 ## Run
 
 - Preparation (attention: clears all docker settings!): `make prep`
 - Full k3d lifecycle and usage demo: `make demo`
 - Multi-Server Setup demo: `make demo-multiserver`
+- Config File Demo: `make demo-configfile`
