@@ -11,24 +11,23 @@ platform:
 steps:
 
   - name: test
-    image: iwilltry42/k3d-ci:v4.0.0-alpha.1
+    image: bitnami/kubectl:1.19.7
+    user: root # the bitnami/kubectl image has a non-root user set by default, which does not work with the shared docker volume which is owned by root
     commands:
       - export KUBECONFIG=kubeconfig-$${DRONE_BUILD_STARTED}.yaml
       - until test -f $${KUBECONFIG}; do sleep 1s; done # wait for k3d service to write the kubeconfig to the workspace
-      - sed -i -E -e 's@https://0\.0\.0\.0:[0-9]{0,5}@https://k3dsvc:6445@g' $${KUBECONFIG} # replace 0.0.0.0 in the kubeconfig with the k3dsvc hostname
       - kubectl config view
-      - kubectl get nodes
       - until kubectl get deployment coredns -n kube-system -o go-template='{{.status.availableReplicas}}' | grep -v -e '<no value>'; do sleep 1s; done # wait for coredns to be up and running
       - kubectl get pods --all-namespaces
 
 services:
   - name: k3dsvc
-    image: iwilltry42/k3d:v4.0.0-alpha.1-dind
+    image: rancher/k3d:v4.0.0-rc.2-dind
     privileged: true    
     commands:
       - export KUBECONFIG=kubeconfig-$${DRONE_BUILD_STARTED}.yaml
       - nohup dockerd-entrypoint.sh & # start docker in the background
       - until docker ps 2>&1 > /dev/null; do sleep 1s; done # wait for docker to be ready before proceeding
-      - k3d cluster create drone --k3s-server-arg '--tls-san=k3dsvc' --api-port 6445 # create k3d cluster
+      - k3d cluster create --config ci/k3d-drone.yaml --api-port k3dsvc:6445 # create k3d cluster from config file
       - printf "@@@@@@@@@@@@@@@@@@@@@@@\n@@@@ k3d is ready! @@@@\n@@@@@@@@@@@@@@@@@@@@@@@\n"
       - tail -f /dev/null # chill around while the steps do their work

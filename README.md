@@ -3,14 +3,14 @@
 ## Requirements
 
 - `docker`
-- `k3d >= v4.0.0-alpha.1`
+- `k3d >= v4.0.0`
 
 ## Resources
 
 - <https://k3d.io/>
 - <https://github.com/rancher/k3d>
-- v3 Release Candidate: <https://github.com/rancher/k3d/releases/tag/v4.0.0-alpha.1>
-  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.0.0-alpha.1 bash`
+- v4 Release Candidate: <https://github.com/rancher/k3d/releases/tag/v4.0.0-rc.2>
+  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.0.0-rc.2 bash`
   
 ## Run
 
