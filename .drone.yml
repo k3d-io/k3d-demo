@@ -29,7 +29,7 @@ steps:
 
 services:
   - name: k3dsvc
-    image: rancher/k3d:v4.0.0-rc.2-dind
+    image: rancher/k3d:v4.1.0-dind
     privileged: true    
     commands:
       - nohup dockerd-entrypoint.sh & # start docker in the background

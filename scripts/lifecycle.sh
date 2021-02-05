@@ -20,7 +20,7 @@ section "Access the Cluster"
 
 info_pause_exec "List clusters" "k3d cluster list"
 
-info_pause_exec "Update the default kubeconfig with the new cluster details" "k3d kubeconfig merge demo --merge-default-kubeconfig --kubeconfig-switch-context"
+info_pause_exec "Update the default kubeconfig with the new cluster details" "k3d kubeconfig merge demo --kubeconfig-merge-default --kubeconfig-switch-context"
 # info "Cluster Name: demo"
 # info "--merge-default-kubeconfig true: overwrite existing fields with the same name in kubeconfig (true by default)"
 # info "--kubeconfig-switch-context true: set the kubeconfig's current-context to the new cluster context (false by default)"

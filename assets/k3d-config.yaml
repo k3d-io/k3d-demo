@@ -1,11 +1,11 @@
-apiVersion: k3d.io/v1alpha1
+apiVersion: k3d.io/v1alpha2
 kind: Simple
 name: k3d-demo
 servers: 3
 agents: 2
-exposeAPI:
+kubeAPI:
   hostIP: "0.0.0.0"
-  port: "6443" # Kubernetes API via localhost:6443
+  hostPort: "6443" # Kubernetes API via localhost:6443
 image: rancher/k3s:v1.19.4-k3s1
 volumes:
   - volume: /tmp:/tmp/somepath
@@ -31,7 +31,7 @@ labels:
 options:
   k3d:
     wait: true
-    timeout: "60s"
+    timeout: "360s"
     disableLoadbalancer: false
     disableImageVolume: false
   k3s:
