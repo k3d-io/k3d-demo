@@ -19,8 +19,23 @@
 ## Run
 
 - Preparation (attention: clears all docker settings!): `make prep`
+
+### Full Lifecycle
+
 - Demo: Full k3d lifecycle and usage with a Python App using hot-reloading of code: `make demo`
+
+### Multi-Server Cluster
+
 - Demo: Multi-Server Setup: `make demo-multiserver`
+
+### Config File Support
+
 - Demo: Creating a cluster from a config file: `make demo-configfile`
-- Demo: Using k3d with a managed registry and Tilt for app-reloading: `make demo-tilt`
-- Demo: Useing k3d as a service in a Drone CI pipeline: `make demo-drone`
+
+### App-Reloading with Tilt and a k3d-managed registry
+
+- Demo: Using k3d with a managed registry and [Tilt](https://tilt.dev) for app-reloading: `make demo-tilt`
+
+### Running k3d in CI
+
+- Demo: Using k3d as a service in a Drone CI pipeline: `make demo-drone`
