@@ -3,6 +3,7 @@
 {{- $name := printf "%s-%s" $app $component -}}
 
 {{- if .Values.app.domain }}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress "}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -23,10 +24,32 @@ spec:
                 name: {{ $name }}
                 port:
                   number: {{ .Values.app.port }}
-
   tls:
     - hosts:
       - "{{ .Values.app.domain }}"
+{{- else }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: "{{ $name }}"
+  labels:
+    team: "{{ .Values.team }}"
+    app: "{{ $app }}"
+    component: "{{ $component }}"
+spec:
+  rules:
+    - host: "{{ .Values.app.domain }}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: {{ $name }}
+              servicePort: {{ .Values.app.port }}
+  tls:
+    - hosts:
+      - "{{ .Values.app.domain }}"
+{{- end }}
 {{- end }}
 ---
 apiVersion: v1
