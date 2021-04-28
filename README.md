@@ -6,6 +6,7 @@
 - [`k3d >= v4.1.0`](https://k3d.io/#installation)
 - [`kubens`](https://github.com/ahmetb/kubectx) callable via the `kubens` binary
 - [`chromium`](https://www.chromium.org/Home) callable via the `chromium` binary
+- [`Helm 3`](https://helm.sh/docs/intro/install/)
 - (optional) [`tilt`](https://docs.tilt.dev/install.html)
 - (optional) [`drone`](https://docs.drone.io/cli/install/)
 
