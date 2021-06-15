@@ -12,7 +12,7 @@ section "Create a Cluster"
 # info "--servers 1: create 1 server node"
 # info "--agents 3: create 3 agent nodes"
 # info "--port 8080:80@loadbalancer: map localhost:8080 to port 80 on the loadbalancer (used for ingress)"
-# info "--volume /tmp/src:/src@all: mount the local directory /tmp/src to /src in all nodes (used for code)"
+# info "--volume $(pwd)/sample:/src@all: mount the sub directory sample of the current directory to /src in all nodes (used for code)"
 # info "--wait: wait for all server nodes to be up before returning"
 info_pause_exec "Create a cluster" "k3d cluster create demo --api-port 6550 --servers 1 --agents 3 --port 8080:80@loadbalancer --volume $(pwd)/sample:/src@all --wait"
 
@@ -22,7 +22,7 @@ info_pause_exec "List clusters" "k3d cluster list"
 
 info_pause_exec "Update the default kubeconfig with the new cluster details (Optional, included in 'k3d cluster create' by default)" "k3d kubeconfig merge demo --kubeconfig-merge-default --kubeconfig-switch-context"
 # info "Cluster Name: demo"
-# info "--merge-default-kubeconfig true: overwrite existing fields with the same name in kubeconfig (true by default)"
+# info "--kubeconfig-merge-default true: overwrite existing fields with the same name in kubeconfig (true by default)"
 # info "--kubeconfig-switch-context true: set the kubeconfig's current-context to the new cluster context (false by default)"
 
 
