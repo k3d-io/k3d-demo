@@ -3,7 +3,7 @@
 ## Requirements
 
 - [`docker`](https://docs.docker.com/get-docker/)
-- [`k3d >= v4.1.0`](https://k3d.io/#installation)
+- [`k3d >= v5.5.0`](https://k3d.io/stable/#installation)
 - [`kubens`](https://github.com/ahmetb/kubectx) callable via the `kubens` binary
 - [`chromium`](https://www.chromium.org/Home) callable via the `chromium` binary
 - [`Helm 3`](https://helm.sh/docs/intro/install/)
@@ -14,8 +14,8 @@
 
 - <https://k3d.io/>
 - <https://github.com/rancher/k3d>
-- v4 Release Candidate: <https://github.com/rancher/k3d/releases/tag/v4.1.0>
-  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.1.0 bash`
+- v4 Release Candidate: <https://github.com/rancher/k3d/releases/tag/v5.0.0>
+  - install e.g. via `wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v5.0.0 bash`
   
 ## Run
 

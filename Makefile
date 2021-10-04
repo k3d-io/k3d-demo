@@ -1,4 +1,4 @@
-.PHONY: run prep
+.PHONY: prep demo demo-multiserver demo-configfile demo-tilt demo-drone
 
 demo:
 	scripts/lifecycle.sh

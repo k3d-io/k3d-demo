@@ -1,43 +1,49 @@
-apiVersion: k3d.io/v1alpha2
 kind: Simple
+apiVersion: k3d.io/v1alpha3
 name: k3d-demo
 servers: 3
 agents: 2
 kubeAPI:
-  hostIP: "0.0.0.0"
-  hostPort: "6443" # Kubernetes API via localhost:6443
-image: rancher/k3s:v1.19.4-k3s1
+  hostIP: 0.0.0.0
+  hostPort: "6443"
+image: rancher/k3s:v1.22.2-k3s1
 volumes:
-  - volume: /tmp:/tmp/somepath
-    nodeFilters:
-      - all
+- volume: /tmp:/tmp/somepath
+  nodeFilters:
+  - all
 ports:
-  - port: 8080:80 # http via localhost:8080
-    nodeFilters:
-      - loadbalancer
-  - port: 0.0.0.0:8443:443 # https via localhost:8443
-    nodeFilters:
-      - loadbalancer
-env:
-  - envVar: bar=baz
-    nodeFilters:
-      - all
-labels:
-  - label: foo=bar
-    nodeFilters:
-      - server[0]
-      - loadbalancer
-
+- port: 8080:80
+  nodeFilters:
+  - loadbalancer
+- port: 0.0.0.0:8443:443
+  nodeFilters:
+  - loadbalancer
 options:
   k3d:
     wait: true
-    timeout: "360s"
+    timeout: 6m0s
     disableLoadbalancer: false
     disableImageVolume: false
+    disableRollback: false
   k3s:
-    extraServerArgs:
-      - --tls-san=127.0.0.1
-    extraAgentArgs: []
+    extraArgs:
+    - arg: --tls-san=127.0.0.1
+      nodeFilters:
+      - server:*
+    nodeLabels: []
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: true
+  runtime:
+    gpuRequest: ""
+    serversMemory: ""
+    agentsMemory: ""
+    labels:
+    - label: foo=bar
+      nodeFilters:
+      - server:0
+      - loadbalancer
+env:
+- envVar: bar=baz
+  nodeFilters:
+  - all

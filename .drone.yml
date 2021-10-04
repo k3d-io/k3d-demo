@@ -11,7 +11,7 @@ platform:
 steps:
 
   - name: test
-    image: bitnami/kubectl:1.19.7
+    image: bitnami/kubectl:1.22.2
     user: root # the bitnami/kubectl image has a non-root user set by default, which does not work with the shared docker volume which is owned by root
     commands:
       - export KUBECONFIG=kubeconfig-$${DRONE_BUILD_STARTED}.yaml
@@ -29,7 +29,7 @@ steps:
 
 services:
   - name: k3dsvc
-    image: rancher/k3d:v4.1.0-dind
+    image: rancher/k3d:5.0.0-rc.4-dind
     privileged: true    
     commands:
       - nohup dockerd-entrypoint.sh & # start docker in the background

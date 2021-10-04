@@ -13,9 +13,9 @@ docker volume prune -f
 docker system prune -a -f
 
 section "Pulling images..."
-docker pull rancher/k3s:v1.20.0-k3s2
-docker pull rancher/k3d-proxy:v4.1.0
-docker pull rancher/k3d-tools:v4.1.0
+docker pull rancher/k3s:v1.22.2-k3s1
+docker pull rancher/k3d-proxy:5.0.0
+docker pull rancher/k3d-tools:5.0.0
 docker pull python:3.7-slim
 
 section "Preparing Filesystem..."
