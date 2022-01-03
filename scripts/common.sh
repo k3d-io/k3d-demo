@@ -22,18 +22,67 @@ function pause(){
 function info_pause_exec() {
   step "$1"
   read -rp $'\033[1;37m#\033[0m'" Command: "$'\033[1;96m'"$2"$'\033[0m'" [Enter]"
-  exe $2
+  exe "$2"
   echo ""
 }
 
+# show info text and command, wait for chosen option
+function info_pause_exec_options() {
+  step "$1"
+
+  read -p $'\033[1;37m#\033[0m'" Command: "$'\033[1;96m'"$2"$'\033[0m'" [y/n] > " -r -n 1 choice
+  case "$choice" in 
+    y|Y )
+      echo ""
+      exe "$2"
+      echo ""
+      return 0
+      ;;
+    n|N )
+      echo ""
+      echo "Not executed."
+      return 0
+      ;;
+    * )
+      echo ""
+      echo "Invalid Choice. Type y or n."
+      info_pause_exec_options "$1" "$2" # restart process on invalid choice
+      ;;
+  esac
+  
+}
+
 # show command and execute it
-exe() { echo "\$ ${@/eval/}" ; "$@" ; } 
+exe() {
+  echo "\$ $1"
+  eval "$1"
+}
 
 # highlight a new section
 section() {
   echo ""
   log "***** Section: ${MGT}$1${END} *****"; 
   echo ""
+}
+
+# highlight a new section but ask for confirmation to run it
+proceed_or_not() {
+  read -p $'\033[1;37m#\033[0m\033[1;33m'" Proceed with $1?"$'\033[0m'" [y/n] > " -r -n 1 choice
+  case "$choice" in 
+    y|Y )
+      echo -e "\n"
+      return 0
+      ;;
+    n|N )
+      echo -e "\n"
+      return 1
+      ;;
+    * )
+      echo ""
+      echo "Invalid Choice. Type y or n."
+      proceed_or_not "$1" "$2" # restart process on invalid choice
+      ;;
+  esac
 }
 
 # highlight the next step
