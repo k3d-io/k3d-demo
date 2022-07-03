@@ -1,4 +1,7 @@
 # These are supported funding model platforms
 
-github: iwilltry42
-issuehunt: k3d-io/k3d-demo
+github: k3d-io
+issuehunt: k3d-io/k3d
+liberapay: k3d-io
+custom:
+  - https://www.buymeacoffee.com/thklein
